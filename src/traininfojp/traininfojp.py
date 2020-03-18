@@ -61,3 +61,18 @@ class RailList:
             })
 
         return train_urls
+
+
+class RailSummary:
+    def __init__(self, page_url):
+        self.page_url = page_url
+        self.parsed_html = None
+        self.fetch_status = ''
+
+    def fetch_parse_html_source(self):
+        try:
+            response = requests.get(self.page_url)
+            self.parsed_html = BeautifulSoup(response.text, 'html.parser')
+            self.fetch_status = 'OK'
+        except requests.exceptions.RequestException:
+            self.fetch_status = 'ERR'
