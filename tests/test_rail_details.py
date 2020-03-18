@@ -28,6 +28,11 @@ def test_get_line_kanji_name(rail_details, rail_details_init):
     assert rail_details_init.get_line_kanji_name() == '芝山鉄道線'
 
 
+def test_get_line_kana_name(rail_details, rail_details_init):
+    assert rail_details.get_line_kana_name() is None
+    assert rail_details_init.get_line_kana_name() == 'しばやまてつどうせん'
+
+
 def test_get_line_status(rail_details, rail_details_init):
     assert rail_details.get_line_status() is None
     assert rail_details_init.get_line_status() == '平常運転'
