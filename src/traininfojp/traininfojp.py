@@ -65,14 +65,13 @@ class RailList:
 
 
 class RailSummary:
-    def __init__(self, page_url):
-        self.page_url = page_url
+    def __init__(self):
         self.parsed_html = None
         self.fetch_status = ''
 
-    def fetch_parse_html_source(self):
+    def fetch_parse_html_source(self, page_url):
         try:
-            response = requests.get(self.page_url)
+            response = requests.get(page_url)
             self.parsed_html = BeautifulSoup(response.text, 'html.parser')
             self.fetch_status = 'OK'
         except requests.exceptions.RequestException:
@@ -119,14 +118,13 @@ class RailSummary:
 
 
 class RailDetails:
-    def __init__(self, page_url):
-        self.page_url = page_url
+    def __init__(self):
         self.parsed_html = None
         self.fetch_status = ''
 
-    def fetch_parse_html_source(self):
+    def fetch_parse_html_source(self, page_url):
         try:
-            response = requests.get(self.page_url)
+            response = requests.get(page_url)
             self.parsed_html = BeautifulSoup(response.text, 'html.parser')
             self.fetch_status = 'OK'
         except requests.exceptions.RequestException:
