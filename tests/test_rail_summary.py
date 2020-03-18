@@ -21,3 +21,14 @@ def test_failed_fetch_parse_html_source(requests_mock, rail_summary,
 
     assert rail_summary.parsed_html is None
     assert rail_summary.fetch_status == 'ERR'
+
+
+def test_get_rail_company_names(rail_summary, rail_summary_init):
+    output_1 = rail_summary.get_rail_company_names()
+
+    assert output_1 is None
+
+    output_2 = rail_summary_init.get_rail_company_names()
+
+    assert output_2[0] == 'JR東日本'
+    assert output_2[-1] == '芝山鉄道'

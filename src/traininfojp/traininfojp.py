@@ -76,3 +76,12 @@ class RailSummary:
             self.fetch_status = 'OK'
         except requests.exceptions.RequestException:
             self.fetch_status = 'ERR'
+
+    @_exc_attr_err
+    def get_rail_company_names(self):
+        names = list()
+
+        for h3 in self.parsed_html.find_all('h3', class_='title'):
+            names.append(h3.text)
+
+        return names
