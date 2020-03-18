@@ -51,3 +51,11 @@ def test_get_line_status(rail_summary, rail_summary_init):
 
     assert rail_summary_init.get_line_status('山手線') == '平常運転'
     assert rail_summary_init.get_line_status('横浜線') == '平常運転'
+
+
+def test_get_line_status_details(rail_summary, rail_summary_init):
+    expected_1 = None
+    expected_2 = '埼京川越線内で線路内点検を行った...'
+
+    assert rail_summary.get_line_status_details('山手線') is expected_1
+    assert rail_summary_init.get_line_status_details('山手線') == expected_2

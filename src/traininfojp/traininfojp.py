@@ -109,3 +109,10 @@ class RailSummary:
             return next_td.contents[1].text
 
         return next_td.text
+
+    @_exc_attr_err
+    def get_line_status_details(self, line_name):
+        td = self.parsed_html.find('td', string=line_name)
+        next_td = td.find_next_sibling().find_next_sibling()
+
+        return next_td.text
