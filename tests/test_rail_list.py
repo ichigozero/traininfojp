@@ -61,3 +61,23 @@ def test_get_bullet_train_details_page_urls(rail_list, rail_list_init):
 
     assert output_2[0] == first_expected_val
     assert output_2[-1] == last_expected_val
+
+
+def test_get_rapid_train_summary_page_urls(rail_list, rail_list_init):
+    output_1 = rail_list.get_rapid_train_summary_page_urls()
+
+    assert output_1 is None
+
+    output_2 = rail_list_init.get_rapid_train_summary_page_urls()
+
+    first_expected_val = {
+        'title': 'JR北海道',
+        'url': 'https://transit.yahoo.co.jp/traininfo/rapid#c9'
+    }
+    last_expected_val = {
+        'title': '智頭急行',
+        'url': 'https://transit.yahoo.co.jp/traininfo/rapid#c379'
+    }
+
+    assert output_2[0] == first_expected_val
+    assert output_2[-1] == last_expected_val

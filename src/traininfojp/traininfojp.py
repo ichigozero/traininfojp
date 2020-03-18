@@ -44,6 +44,9 @@ class RailList:
     def get_bullet_train_details_page_urls(self):
         return self._get_train_page_urls(TrainType.BULLET_TRAIN)
 
+    def get_rapid_train_summary_page_urls(self):
+        return self._get_train_page_urls(TrainType.RAPID)
+
     @_exc_attr_err
     def _get_train_page_urls(self, train_type):
         div = self.parsed_html.find('div', class_='elmTblLstTrain')
