@@ -33,6 +33,11 @@ def test_get_line_kana_name(rail_details, rail_details_init):
     assert rail_details_init.get_line_kana_name() == 'しばやまてつどうせん'
 
 
+def test_get_last_updated_time(rail_details, rail_details_init):
+    assert rail_details.get_last_updated_time() is None
+    assert rail_details_init.get_last_updated_time() == '3月18日 23時30分更新'
+
+
 def test_get_line_status(rail_details, rail_details_init):
     assert rail_details.get_line_status() is None
     assert rail_details_init.get_line_status() == '平常運転'

@@ -143,6 +143,11 @@ class RailDetails:
         return div.find('span', class_='staKana').text
 
     @_exc_attr_err
+    def get_last_updated_time(self):
+        div = self.parsed_html.find('div', class_='labelLarge')
+        return div.find('span', class_='subText').text
+
+    @_exc_attr_err
     def get_line_status(self):
         div = self.parsed_html.find('div', id='mdServiceStatus')
         return div.find('dt').contents[1]
