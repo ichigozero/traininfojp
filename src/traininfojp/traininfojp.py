@@ -133,6 +133,11 @@ class RailDetails:
             self.fetch_status = 'ERR'
 
     @_exc_attr_err
+    def get_line_kanji_name(self):
+        div = self.parsed_html.find('div', class_='labelLarge')
+        return div.find('h1', class_='title').text
+
+    @_exc_attr_err
     def get_line_status(self):
         div = self.parsed_html.find('div', id='mdServiceStatus')
         return div.find('dt').contents[1]

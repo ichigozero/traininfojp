@@ -23,6 +23,11 @@ def test_failed_fetch_parse_html_source(requests_mock, rail_details,
     assert rail_details.fetch_status == 'ERR'
 
 
+def test_get_line_kanji_name(rail_details, rail_details_init):
+    assert rail_details.get_line_kanji_name() is None
+    assert rail_details_init.get_line_kanji_name() == '芝山鉄道線'
+
+
 def test_get_line_status(rail_details, rail_details_init):
     assert rail_details.get_line_status() is None
     assert rail_details_init.get_line_status() == '平常運転'
