@@ -131,3 +131,8 @@ class RailDetails:
             self.fetch_status = 'OK'
         except requests.exceptions.RequestException:
             self.fetch_status = 'ERR'
+
+    @_exc_attr_err
+    def get_line_status(self):
+        div = self.parsed_html.find('div', id='mdServiceStatus')
+        return div.find('dt').contents[1]
