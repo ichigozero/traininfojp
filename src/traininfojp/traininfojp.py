@@ -1,3 +1,4 @@
+import re
 import urllib.parse
 
 import requests
@@ -98,3 +99,13 @@ class RailSummary:
             names.append(anchor.text)
 
         return names
+
+    @_exc_attr_err
+    def get_line_status(self, line_name):
+        td = self.parsed_html.find('td', string=line_name)
+        next_td = td.find_next_sibling()
+
+        if next_td.find('span', class_=re.compile('icn.*')) is not None:
+            return next_td.contents[1].text
+
+        return next_td.text

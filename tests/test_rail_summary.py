@@ -43,3 +43,11 @@ def test_get_line_names_by_rail_company(rail_summary, rail_summary_init):
 
     assert output_2[0] == '山手線'
     assert output_2[-1] == '上野東京ライン'
+
+
+def test_get_line_status(rail_summary, rail_summary_init):
+    assert rail_summary.get_line_status('山手線') is None
+    assert rail_summary.get_line_status('横浜線') is None
+
+    assert rail_summary_init.get_line_status('山手線') == '平常運転'
+    assert rail_summary_init.get_line_status('横浜線') == '平常運転'
