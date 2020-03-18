@@ -25,11 +25,21 @@ class TrainType:
     RAPID = 2
 
 
-class RailList:
+class BaseClass:
     def __init__(self):
         self.parsed_html = None
         self.fetch_status = ''
 
+    def fetch_parse_html_source(self, page_url):
+        try:
+            response = requests.get(page_url)
+            self.parsed_html = BeautifulSoup(response.text, 'html.parser')
+            self.fetch_status = 'OK'
+        except requests.exceptions.RequestException:
+            self.fetch_status = 'ERR'
+
+
+class RailList(BaseClass):
     def fetch_parse_html_source(self):
         try:
             global TRAIN_INFO_JP_URL
@@ -64,19 +74,7 @@ class RailList:
         return train_urls
 
 
-class RailSummary:
-    def __init__(self):
-        self.parsed_html = None
-        self.fetch_status = ''
-
-    def fetch_parse_html_source(self, page_url):
-        try:
-            response = requests.get(page_url)
-            self.parsed_html = BeautifulSoup(response.text, 'html.parser')
-            self.fetch_status = 'OK'
-        except requests.exceptions.RequestException:
-            self.fetch_status = 'ERR'
-
+class RailSummary(BaseClass):
     @_exc_attr_err
     def get_rail_company_names(self):
         names = list()
@@ -117,19 +115,7 @@ class RailSummary:
         return next_td.text
 
 
-class RailDetails:
-    def __init__(self):
-        self.parsed_html = None
-        self.fetch_status = ''
-
-    def fetch_parse_html_source(self, page_url):
-        try:
-            response = requests.get(page_url)
-            self.parsed_html = BeautifulSoup(response.text, 'html.parser')
-            self.fetch_status = 'OK'
-        except requests.exceptions.RequestException:
-            self.fetch_status = 'ERR'
-
+class RailDetails(BaseClass):
     @_exc_attr_err
     def get_line_kanji_name(self):
         div = self.parsed_html.find('div', class_='labelLarge')
