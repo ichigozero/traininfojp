@@ -4,6 +4,8 @@ import pytest
 from bs4 import BeautifulSoup
 
 from traininfojp import RailList
+from traininfojp import RailSummary
+from traininfojp import TRAIN_INFO_URL
 
 
 def test_file(filename):
@@ -31,3 +33,21 @@ def rail_list_init(rail_list_html):
     rail_list = RailList()
     rail_list.parsed_html = BeautifulSoup(rail_list_html, 'html.parser')
     return rail_list
+
+
+@pytest.fixture(scope='module')
+def rail_summary_html():
+    return test_file('rail_summary.html')
+
+
+@pytest.fixture
+def rail_summary():
+    rail_summary = RailSummary(TRAIN_INFO_URL)
+    return rail_summary
+
+
+@pytest.fixture
+def rail_summary_init(rail_summary_html):
+    rail_summary = RailSummary(TRAIN_INFO_URL)
+    rail_summary.parsed_html = BeautifulSoup(rail_summary_html, 'html.parser')
+    return rail_summary

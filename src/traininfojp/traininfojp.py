@@ -1,3 +1,4 @@
+import re
 import urllib.parse
 
 import requests
@@ -61,3 +62,57 @@ class RailList:
             })
 
         return train_urls
+
+
+class RailSummary:
+    def __init__(self, page_url):
+        self.page_url = page_url
+        self.parsed_html = None
+        self.fetch_status = ''
+
+    def fetch_parse_html_source(self):
+        try:
+            response = requests.get(self.page_url)
+            self.parsed_html = BeautifulSoup(response.text, 'html.parser')
+            self.fetch_status = 'OK'
+        except requests.exceptions.RequestException:
+            self.fetch_status = 'ERR'
+
+    @_exc_attr_err
+    def get_rail_company_names(self):
+        names = list()
+
+        for h3 in self.parsed_html.find_all('h3', class_='title'):
+            names.append(h3.text)
+
+        return names
+
+    @_exc_attr_err
+    def get_line_names_by_rail_company(self, company_name):
+        div = self.parsed_html.find(
+            'h3', class_='title', string=company_name).parent
+        next_div = div.find_next_sibling('div', class_='elmTblLstLine')
+
+        names = list()
+
+        for anchor in next_div.find_all('a'):
+            names.append(anchor.text)
+
+        return names
+
+    @_exc_attr_err
+    def get_line_status(self, line_name):
+        td = self.parsed_html.find('td', string=line_name)
+        next_td = td.find_next_sibling()
+
+        if next_td.find('span', class_=re.compile('icn.*')) is not None:
+            return next_td.contents[1].text
+
+        return next_td.text
+
+    @_exc_attr_err
+    def get_line_status_details(self, line_name):
+        td = self.parsed_html.find('td', string=line_name)
+        next_td = td.find_next_sibling().find_next_sibling()
+
+        return next_td.text
