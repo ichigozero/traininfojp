@@ -1,4 +1,6 @@
-from .traininfojp import RailDetails
-from .traininfojp import RailList
-from .traininfojp import RailSummary
-from .traininfojp import TRAIN_INFO_URL
+from .traininfojp import (
+    RailDetails,
+    RailList,
+    RailSummary,
+    TRAIN_INFO_URL
+)
