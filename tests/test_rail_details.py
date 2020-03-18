@@ -1,0 +1,23 @@
+import requests
+from bs4 import BeautifulSoup
+
+from traininfojp import TRAIN_INFO_URL
+
+
+def test_fetch_parse_html_source(requests_mock, rail_details,
+                                 rail_details_html):
+    requests_mock.get(TRAIN_INFO_URL, text=rail_details_html)
+    rail_details.fetch_parse_html_source()
+
+    expected_html = BeautifulSoup(rail_details_html, 'html.parser')
+    assert rail_details.parsed_html == expected_html
+    assert rail_details.fetch_status == 'OK'
+
+
+def test_failed_fetch_parse_html_source(requests_mock, rail_details,
+                                        rail_details_html):
+    requests_mock.get(TRAIN_INFO_URL, exc=requests.exceptions.HTTPError)
+    rail_details.fetch_parse_html_source()
+
+    assert rail_details.parsed_html is None
+    assert rail_details.fetch_status == 'ERR'
