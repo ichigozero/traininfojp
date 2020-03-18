@@ -136,3 +136,8 @@ class RailDetails:
     def get_line_status(self):
         div = self.parsed_html.find('div', id='mdServiceStatus')
         return div.find('dt').contents[1]
+
+    @_exc_attr_err
+    def get_line_status_details(self):
+        div = self.parsed_html.find('div', id='mdServiceStatus')
+        return div.find('p').text

@@ -26,3 +26,11 @@ def test_failed_fetch_parse_html_source(requests_mock, rail_details,
 def test_get_line_status(rail_details, rail_details_init):
     assert rail_details.get_line_status() is None
     assert rail_details_init.get_line_status() == '平常運転'
+
+
+def test_get_line_status_details(rail_details, rail_details_init):
+    expected_1 = None
+    expected_2 = '現在､事故･遅延に関する情報はありません。'
+
+    assert rail_details.get_line_status_details() is expected_1
+    assert rail_details_init.get_line_status_details() == expected_2
