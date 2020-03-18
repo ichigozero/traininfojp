@@ -3,9 +3,11 @@ import os
 import pytest
 from bs4 import BeautifulSoup
 
-from traininfojp import RailDetails
-from traininfojp import RailList
-from traininfojp import RailSummary
+from traininfojp import (
+    RailDetails,
+    RailList,
+    RailSummary,
+)
 
 
 def test_file(filename):
