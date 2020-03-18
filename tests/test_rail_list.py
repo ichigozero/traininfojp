@@ -21,3 +21,23 @@ def test_failed_fetch_parse_html_source(requests_mock, rail_list,
 
     assert rail_list.parsed_html is None
     assert rail_list.fetch_status == 'ERR'
+
+
+def test_get_regular_train_summary_page_urls(rail_list, rail_list_init):
+    output_1 = rail_list.get_regular_train_summary_page_urls()
+
+    assert output_1 is None
+
+    output_2 = rail_list_init.get_regular_train_summary_page_urls()
+
+    first_expected_val = {
+        'title': '北海道',
+        'url': 'https://transit.yahoo.co.jp/traininfo/area/2/'
+    }
+    last_expected_val = {
+        'title': '九州',
+        'url': 'https://transit.yahoo.co.jp/traininfo/area/7/'
+    }
+
+    assert output_2[0] == first_expected_val
+    assert output_2[-1] == last_expected_val

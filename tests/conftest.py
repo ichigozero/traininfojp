@@ -1,6 +1,7 @@
 import os
 
 import pytest
+from bs4 import BeautifulSoup
 
 from traininfojp import RailList
 
@@ -22,4 +23,11 @@ def rail_list_html():
 @pytest.fixture
 def rail_list():
     rail_list = RailList()
+    return rail_list
+
+
+@pytest.fixture
+def rail_list_init(rail_list_html):
+    rail_list = RailList()
+    rail_list.parsed_html = BeautifulSoup(rail_list_html, 'html.parser')
     return rail_list
