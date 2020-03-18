@@ -65,8 +65,7 @@ class RailList:
 
 
 class RailSummary:
-    def __init__(self, page_url):
-        self.page_url = page_url
+    def __init__(self):
         self.parsed_html = None
         self.fetch_status = ''
 
@@ -119,8 +118,7 @@ class RailSummary:
 
 
 class RailDetails:
-    def __init__(self, page_url):
-        self.page_url = page_url
+    def __init__(self):
         self.parsed_html = None
         self.fetch_status = ''
 

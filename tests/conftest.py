@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 from traininfojp import RailDetails
 from traininfojp import RailList
 from traininfojp import RailSummary
-from traininfojp import TRAIN_INFO_URL
 
 
 def test_file(filename):
@@ -43,13 +42,13 @@ def rail_summary_html():
 
 @pytest.fixture
 def rail_summary():
-    rail_summary = RailSummary(TRAIN_INFO_URL)
+    rail_summary = RailSummary()
     return rail_summary
 
 
 @pytest.fixture
 def rail_summary_init(rail_summary_html):
-    rail_summary = RailSummary(TRAIN_INFO_URL)
+    rail_summary = RailSummary()
     rail_summary.parsed_html = BeautifulSoup(rail_summary_html, 'html.parser')
     return rail_summary
 
@@ -61,12 +60,12 @@ def rail_details_html():
 
 @pytest.fixture
 def rail_details():
-    rail_details = RailDetails(TRAIN_INFO_URL)
+    rail_details = RailDetails()
     return rail_details
 
 
 @pytest.fixture
 def rail_details_init(rail_details_html):
-    rail_details = RailDetails(TRAIN_INFO_URL)
+    rail_details = RailDetails()
     rail_details.parsed_html = BeautifulSoup(rail_details_html, 'html.parser')
     return rail_details
