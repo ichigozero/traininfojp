@@ -116,3 +116,43 @@ class RailSummary:
         next_td = td.find_next_sibling().find_next_sibling()
 
         return next_td.text
+
+
+class RailDetails:
+    def __init__(self, page_url):
+        self.page_url = page_url
+        self.parsed_html = None
+        self.fetch_status = ''
+
+    def fetch_parse_html_source(self):
+        try:
+            response = requests.get(self.page_url)
+            self.parsed_html = BeautifulSoup(response.text, 'html.parser')
+            self.fetch_status = 'OK'
+        except requests.exceptions.RequestException:
+            self.fetch_status = 'ERR'
+
+    @_exc_attr_err
+    def get_line_kanji_name(self):
+        div = self.parsed_html.find('div', class_='labelLarge')
+        return div.find('h1', class_='title').text
+
+    @_exc_attr_err
+    def get_line_kana_name(self):
+        div = self.parsed_html.find('div', class_='labelLarge')
+        return div.find('span', class_='staKana').text
+
+    @_exc_attr_err
+    def get_last_updated_time(self):
+        div = self.parsed_html.find('div', class_='labelLarge')
+        return div.find('span', class_='subText').text
+
+    @_exc_attr_err
+    def get_line_status(self):
+        div = self.parsed_html.find('div', id='mdServiceStatus')
+        return div.find('dt').contents[1]
+
+    @_exc_attr_err
+    def get_line_status_details(self):
+        div = self.parsed_html.find('div', id='mdServiceStatus')
+        return div.find('p').text
