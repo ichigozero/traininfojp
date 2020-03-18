@@ -85,3 +85,16 @@ class RailSummary:
             names.append(h3.text)
 
         return names
+
+    @_exc_attr_err
+    def get_line_names_by_rail_company(self, company_name):
+        div = self.parsed_html.find(
+            'h3', class_='title', string=company_name).parent
+        next_div = div.find_next_sibling('div', class_='elmTblLstLine')
+
+        names = list()
+
+        for anchor in next_div.find_all('a'):
+            names.append(anchor.text)
+
+        return names

@@ -32,3 +32,14 @@ def test_get_rail_company_names(rail_summary, rail_summary_init):
 
     assert output_2[0] == 'JR東日本'
     assert output_2[-1] == '芝山鉄道'
+
+
+def test_get_line_names_by_rail_company(rail_summary, rail_summary_init):
+    output_1 = rail_summary.get_line_names_by_rail_company('JR東日本')
+
+    assert output_1 is None
+
+    output_2 = rail_summary_init.get_line_names_by_rail_company('JR東日本')
+
+    assert output_2[0] == '山手線'
+    assert output_2[-1] == '上野東京ライン'
