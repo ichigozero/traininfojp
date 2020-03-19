@@ -27,13 +27,13 @@ class TrainType:
 
 class BaseClass:
     def __init__(self):
-        self.parsed_html = None
+        self._parsed_html = None
         self.fetch_status = ''
 
     def fetch_parse_html_source(self, page_url):
         try:
             response = requests.get(page_url)
-            self.parsed_html = BeautifulSoup(response.text, 'html.parser')
+            self._parsed_html = BeautifulSoup(response.text, 'html.parser')
             self.fetch_status = 'OK'
         except requests.exceptions.RequestException:
             self.fetch_status = 'ERR'
@@ -44,7 +44,7 @@ class RailList(BaseClass):
         try:
             global TRAIN_INFO_JP_URL
             response = requests.get(TRAIN_INFO_URL)
-            self.parsed_html = BeautifulSoup(response.text, 'html.parser')
+            self._parsed_html = BeautifulSoup(response.text, 'html.parser')
             self.fetch_status = 'OK'
         except requests.exceptions.RequestException:
             self.fetch_status = 'ERR'
@@ -60,7 +60,7 @@ class RailList(BaseClass):
 
     @_exc_attr_err
     def _get_train_page_urls(self, train_type):
-        div = self.parsed_html.find('div', class_='elmTblLstTrain')
+        div = self._parsed_html.find('div', class_='elmTblLstTrain')
         ul = div.find_all('ul')[train_type]
         train_urls = list()
 
@@ -79,14 +79,14 @@ class RailSummary(BaseClass):
     def get_rail_company_names(self):
         names = list()
 
-        for h3 in self.parsed_html.find_all('h3', class_='title'):
+        for h3 in self._parsed_html.find_all('h3', class_='title'):
             names.append(h3.text)
 
         return names
 
     @_exc_attr_err
     def get_line_names_by_rail_company(self, company_name):
-        div = self.parsed_html.find(
+        div = self._parsed_html.find(
             'h3', class_='title', string=company_name).parent
         next_div = div.find_next_sibling('div', class_='elmTblLstLine')
 
@@ -99,7 +99,7 @@ class RailSummary(BaseClass):
 
     @_exc_attr_err
     def get_line_status(self, line_name):
-        td = self.parsed_html.find('td', string=line_name)
+        td = self._parsed_html.find('td', string=line_name)
         next_td = td.find_next_sibling()
 
         if next_td.find('span', class_=re.compile('icn.*')) is not None:
@@ -109,7 +109,7 @@ class RailSummary(BaseClass):
 
     @_exc_attr_err
     def get_line_status_details(self, line_name):
-        td = self.parsed_html.find('td', string=line_name)
+        td = self._parsed_html.find('td', string=line_name)
         next_td = td.find_next_sibling().find_next_sibling()
 
         return next_td.text
@@ -118,25 +118,25 @@ class RailSummary(BaseClass):
 class RailDetails(BaseClass):
     @_exc_attr_err
     def get_line_kanji_name(self):
-        div = self.parsed_html.find('div', class_='labelLarge')
+        div = self._parsed_html.find('div', class_='labelLarge')
         return div.find('h1', class_='title').text
 
     @_exc_attr_err
     def get_line_kana_name(self):
-        div = self.parsed_html.find('div', class_='labelLarge')
+        div = self._parsed_html.find('div', class_='labelLarge')
         return div.find('span', class_='staKana').text
 
     @_exc_attr_err
     def get_last_updated_time(self):
-        div = self.parsed_html.find('div', class_='labelLarge')
+        div = self._parsed_html.find('div', class_='labelLarge')
         return div.find('span', class_='subText').text
 
     @_exc_attr_err
     def get_line_status(self):
-        div = self.parsed_html.find('div', id='mdServiceStatus')
+        div = self._parsed_html.find('div', id='mdServiceStatus')
         return div.find('dt').contents[1]
 
     @_exc_attr_err
     def get_line_status_details(self):
-        div = self.parsed_html.find('div', id='mdServiceStatus')
+        div = self._parsed_html.find('div', id='mdServiceStatus')
         return div.find('p').text
