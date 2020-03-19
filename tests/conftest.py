@@ -26,8 +26,7 @@ def rail_list_html():
 
 @pytest.fixture
 def rail_list():
-    rail_list = RailList()
-    return rail_list
+    return RailList()
 
 
 @pytest.fixture
@@ -44,8 +43,7 @@ def rail_summary_html():
 
 @pytest.fixture
 def rail_summary():
-    rail_summary = RailSummary()
-    return rail_summary
+    return RailSummary()
 
 
 @pytest.fixture
@@ -62,8 +60,7 @@ def rail_details_html():
 
 @pytest.fixture
 def rail_details():
-    rail_details = RailDetails()
-    return rail_details
+    return RailDetails()
 
 
 @pytest.fixture
