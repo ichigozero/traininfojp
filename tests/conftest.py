@@ -26,14 +26,13 @@ def rail_list_html():
 
 @pytest.fixture
 def rail_list():
-    rail_list = RailList()
-    return rail_list
+    return RailList()
 
 
 @pytest.fixture
 def rail_list_init(rail_list_html):
     rail_list = RailList()
-    rail_list.parsed_html = BeautifulSoup(rail_list_html, 'html.parser')
+    rail_list._parsed_html = BeautifulSoup(rail_list_html, 'html.parser')
     return rail_list
 
 
@@ -44,14 +43,13 @@ def rail_summary_html():
 
 @pytest.fixture
 def rail_summary():
-    rail_summary = RailSummary()
-    return rail_summary
+    return RailSummary()
 
 
 @pytest.fixture
 def rail_summary_init(rail_summary_html):
     rail_summary = RailSummary()
-    rail_summary.parsed_html = BeautifulSoup(rail_summary_html, 'html.parser')
+    rail_summary._parsed_html = BeautifulSoup(rail_summary_html, 'html.parser')
     return rail_summary
 
 
@@ -62,12 +60,11 @@ def rail_details_html():
 
 @pytest.fixture
 def rail_details():
-    rail_details = RailDetails()
-    return rail_details
+    return RailDetails()
 
 
 @pytest.fixture
 def rail_details_init(rail_details_html):
     rail_details = RailDetails()
-    rail_details.parsed_html = BeautifulSoup(rail_details_html, 'html.parser')
+    rail_details._parsed_html = BeautifulSoup(rail_details_html, 'html.parser')
     return rail_details
