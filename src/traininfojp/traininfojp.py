@@ -42,7 +42,6 @@ class BaseClass:
 class RailList(BaseClass):
     def fetch_parse_html_source(self):
         try:
-            global TRAIN_INFO_JP_URL
             response = requests.get(TRAIN_INFO_URL)
             self._parsed_html = BeautifulSoup(response.text, 'html.parser')
             self.fetch_status = 'OK'
