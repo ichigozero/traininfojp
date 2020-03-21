@@ -10,9 +10,9 @@ TRAIN_INFO_URL = 'https://transit.yahoo.co.jp/traininfo/top'
 
 
 def _exc_attr_err(func):
-    def wrapper(self, *args, **kwargs):
+    def wrapper(*args, **kwargs):
         try:
-            return func(self, *args, **kwargs)
+            return func(*args, **kwargs)
         except AttributeError:
             return None
 
