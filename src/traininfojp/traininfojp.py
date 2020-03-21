@@ -10,9 +10,9 @@ TRAIN_INFO_URL = 'https://transit.yahoo.co.jp/traininfo/top'
 
 
 def _exc_attr_err(func):
-    def wrapper(self, *args, **kwargs):
+    def wrapper(*args, **kwargs):
         try:
-            return func(self, *args, **kwargs)
+            return func(*args, **kwargs)
         except AttributeError:
             return None
 
@@ -42,7 +42,6 @@ class BaseClass:
 class RailList(BaseClass):
     def fetch_parse_html_source(self):
         try:
-            global TRAIN_INFO_JP_URL
             response = requests.get(TRAIN_INFO_URL)
             self._parsed_html = BeautifulSoup(response.text, 'html.parser')
             self.fetch_status = 'OK'
