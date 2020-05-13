@@ -59,3 +59,11 @@ def test_get_line_status_details(rail_summary, rail_summary_init):
 
     assert rail_summary.get_line_status_details('山手線') is expected_1
     assert rail_summary_init.get_line_status_details('山手線') == expected_2
+
+
+def test_get_line_details_page_url(rail_summary, rail_summary_init):
+    expected_1 = None
+    expected_2 = 'https://transit.yahoo.co.jp/traininfo/detail/21/0/'
+
+    assert rail_summary.get_line_details_page_url('山手線') is expected_1
+    assert rail_summary_init.get_line_details_page_url('山手線') == expected_2

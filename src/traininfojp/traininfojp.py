@@ -113,6 +113,12 @@ class RailSummary(BaseClass):
 
         return next_td.text
 
+    @_exc_attr_err
+    def get_line_details_page_url(self, line_name):
+        td = self._parsed_html.find('td', string=line_name)
+
+        return td.find('a')['href']
+
 
 class RailDetails(BaseClass):
     @_exc_attr_err
