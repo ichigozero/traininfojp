@@ -23,6 +23,30 @@ def test_failed_fetch_parse_html_source(requests_mock, rail_list,
     assert rail_list.fetch_status == 'ERR'
 
 
+def test_get_regular_train_title(rail_list, rail_list_init):
+    output_1 = rail_list.get_regular_train_title()
+    assert output_1 is None
+
+    output_2 = rail_list_init.get_regular_train_title()
+    assert output_2 == '在来線・私鉄・地下鉄'
+
+
+def test_get_bullet_train_titleu(rail_list, rail_list_init):
+    output_1 = rail_list.get_bullet_train_title()
+    assert output_1 is None
+
+    output_2 = rail_list_init.get_bullet_train_title()
+    assert output_2 == '新幹線'
+
+
+def test_get_rapid_train_title(rail_list, rail_list_init):
+    output_1 = rail_list.get_rapid_train_title()
+    assert output_1 is None
+
+    output_2 = rail_list_init.get_rapid_train_title()
+    assert output_2 == '有料特急'
+
+
 def test_get_regular_train_summary_page_urls(rail_list, rail_list_init):
     output_1 = rail_list.get_regular_train_summary_page_urls()
 
