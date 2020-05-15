@@ -48,6 +48,22 @@ class RailList(BaseClass):
         except requests.exceptions.RequestException:
             self.fetch_status = 'ERR'
 
+    def get_regular_train_title(self):
+        return self._get_train_type_title(TrainType.REGULAR)
+
+    def get_bullet_train_title(self):
+        return self._get_train_type_title(TrainType.BULLET_TRAIN)
+
+    def get_rapid_train_title(self):
+        return self._get_train_type_title(TrainType.RAPID)
+
+    @_exc_attr_err
+    def _get_train_type_title(self, train_type):
+        div = self._parsed_html.find('div', class_='elmTblLstTrain')
+        th = div.find_all('th')[train_type]
+        th.span.clear()
+        return th.text
+
     def get_regular_train_summary_page_urls(self):
         return self._get_train_page_urls(TrainType.REGULAR)
 
@@ -112,6 +128,12 @@ class RailSummary(BaseClass):
         next_td = td.find_next_sibling().find_next_sibling()
 
         return next_td.text
+
+    @_exc_attr_err
+    def get_line_details_page_url(self, line_name):
+        td = self._parsed_html.find('td', string=line_name)
+
+        return td.find('a')['href']
 
 
 class RailDetails(BaseClass):
