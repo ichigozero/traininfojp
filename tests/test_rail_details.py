@@ -14,8 +14,7 @@ def test_fetch_parse_html_source(requests_mock, rail_details,
     assert rail_details.fetch_status == 'OK'
 
 
-def test_failed_fetch_parse_html_source(requests_mock, rail_details,
-                                        rail_details_html):
+def test_failed_fetch_parse_html_source(requests_mock, rail_details):
     requests_mock.get(TRAIN_INFO_URL, exc=requests.exceptions.HTTPError)
     rail_details.fetch_parse_html_source(TRAIN_INFO_URL)
 
