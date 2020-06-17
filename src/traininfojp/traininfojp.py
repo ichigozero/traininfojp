@@ -1,3 +1,4 @@
+import copy
 import re
 import urllib.parse
 
@@ -155,7 +156,9 @@ class RailDetails(BaseClass):
     @_exc_attr_err
     def get_line_status(self):
         div = self._parsed_html.find('div', id='mdServiceStatus')
-        return div.find('dt').contents[1]
+        dt = copy.copy(div.find('dt'))
+        dt.span.decompose()
+        return dt.text.strip()
 
     @_exc_attr_err
     def get_line_status_details(self):
