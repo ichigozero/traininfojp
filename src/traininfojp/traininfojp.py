@@ -61,8 +61,8 @@ class RailList(BaseClass):
     @_exc_attr_err
     def _get_train_type_title(self, train_type):
         div = self._parsed_html.find('div', class_='elmTblLstTrain')
-        th = div.find_all('th')[train_type]
-        th.span.clear()
+        th = copy.copy(div.find_all('th')[train_type])
+        th.span.decompose()
         return th.text
 
     def get_regular_train_summary_page_urls(self):
